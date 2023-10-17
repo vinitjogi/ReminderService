@@ -47,10 +47,29 @@ const createNotification = async (data) => {
     }
 }
 
+const subscribeEvents = async (payload) => {
+    let service = payload.service;
+    let data = payload.data;
+    switch (service) {
+        case 'CREATE_TICKIT':
+            await createNotification(data);
+            break;
+    
+        case 'SEND_BASIC_MAIL':
+            await sendBasicEmail(data);
+            break;
+        
+        default:
+            console.log('No valid event reveived');
+            break;
+    }
+}
+
 module.exports = {
     sendBasicEmail,
     fetchPendingEmails,
     createNotification,
-    updateTickit
+    updateTickit,
+    subscribeEvents
 
 }
